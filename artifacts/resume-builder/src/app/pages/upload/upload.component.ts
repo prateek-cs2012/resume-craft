@@ -1,5 +1,6 @@
 import { Component, signal, computed, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Title, Meta } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -262,8 +263,13 @@ export class UploadComponent {
   constructor(
     public router: Router,
     public uploadSvc: UploadService,
-    private resumeSvc: ResumeService
-  ) {}
+    private resumeSvc: ResumeService,
+    title: Title,
+    meta: Meta
+  ) {
+    title.setTitle('Upload Your Resume | ResumeCraft');
+    meta.updateTag({ name: 'robots', content: 'noindex, nofollow' });
+  }
 
   onDragOver(e: DragEvent) { e.preventDefault(); this.isDragging.set(true); }
   onDrop(e: DragEvent) {

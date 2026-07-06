@@ -1,0 +1,2 @@
+- [Angular 17 Replit host check fix](angular-17-vite-host-fix.md) — Angular's Vite dev-server ignores vite.config.ts; patch vite-server.js directly in the dev script.
+- [Clerk replaced with custom JWT auth](clerk-replaced-jwt.md) — Clerk had unfixable proxy issues on Replit prod; replaced with bcryptjs + jsonwebtoken using SESSION_SECRET.

@@ -1,0 +1,25 @@
+# Resume Builder
+
+> A free, browser-based tool that helps job seekers create professional, ATS-friendly resumes in minutes. Users can upload an existing PDF or DOCX resume to extract their details, or build a new resume from scratch using a guided editor, then download a polished PDF.
+
+## Product
+
+Resume Builder is a client-side single-page application built with Angular. No account or sign-in is required. All data stays in the browser.
+
+## Public Routes
+
+- [Home](/) — Landing page. Explains the product and lets users choose to upload an existing resume or start fresh.
+- [Upload](/upload) — Upload a PDF or DOCX resume for automatic content extraction.
+- [Builder](/builder) — Guided resume editor. Fill in sections: contact info, summary, work experience, education, and skills.
+- [Preview](/preview) — Live-rendered resume preview with PDF download.
+
+## Target Audience
+
+Job seekers who want a quick, private, and polished resume without creating an account or paying for a subscription.
+
+## Key Facts
+
+- Free to use, no sign-in required
+- Works entirely in the browser — no data is sent to a server
+- Supports PDF and DOCX upload for content extraction
+- Produces ATS-compatible PDF output

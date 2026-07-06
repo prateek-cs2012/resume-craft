@@ -1,15 +1,120 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>ResumeCraft</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-<body class="mat-typography">
-  <app-root></app-root>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>ResumeCraft | Free ATS-Friendly Resume Builder</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Build a professional, ATS-friendly resume in minutes with ResumeCraft. Upload your existing resume, customize it with our guided builder, and download a polished PDF that gets past applicant tracking systems."
+    />
+    <link rel="canonical" href="https://resumecraft.app/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://resumecraft.app/" />
+    <meta
+      property="og:title"
+      content="ResumeCraft | Free ATS-Friendly Resume Builder"
+    />
+    <meta
+      property="og:description"
+      content="Build a professional, ATS-friendly resume in minutes. Upload, customize, and download a polished PDF that gets past applicant tracking systems."
+    />
+    <meta
+      property="og:image"
+      content="https://resumecraft.app/social-card.svg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="ResumeCraft" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="ResumeCraft | Free ATS-Friendly Resume Builder"
+    />
+    <meta
+      name="twitter:description"
+      content="Build a professional, ATS-friendly resume in minutes. Upload, customize, and download a polished PDF that gets past applicant tracking systems."
+    />
+    <meta
+      name="twitter:image"
+      content="https://resumecraft.app/social-card.svg"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://resumecraft.app/#website",
+            "url": "https://resumecraft.app/",
+            "name": "ResumeCraft",
+            "description": "Free ATS-friendly resume builder that helps job seekers create polished, professional resumes in minutes.",
+            "publisher": {
+              "@id": "https://resumecraft.app/#organization"
+            }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://resumecraft.app/#organization",
+            "name": "ResumeCraft",
+            "url": "https://resumecraft.app/"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://resumecraft.app/#app",
+            "name": "ResumeCraft",
+            "url": "https://resumecraft.app/",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "description": "An ATS-friendly resume builder that lets you upload an existing resume, edit it with a guided builder, and export a professional PDF optimized for applicant tracking systems.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "publisher": {
+              "@id": "https://resumecraft.app/#organization"
+            }
+          }
+        ]
+      }
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <!-- AdSense script loaded dynamically by AdUnitComponent via /api/config -->
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E880JNQ0BJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-E880JNQ0BJ');
+    </script>
+
+    <!-- Google Identity Services (for Sign in with Google) -->
+    <script src="https://accounts.google.com/gsi/client" async></script>
+
+    <!-- Razorpay Checkout -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  </head>
+  <body class="mat-typography">
+    <app-root></app-root>
+  </body>
 </html>

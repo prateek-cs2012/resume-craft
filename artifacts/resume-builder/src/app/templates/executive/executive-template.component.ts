@@ -40,7 +40,7 @@ import { ResumeData } from '../../models/resume.model';
     <!-- WORK EXPERIENCE -->
     <section *ngIf="data.workExperience?.length" class="section">
       <h3 class="section-title">Professional Experience</h3>
-      <div *ngFor="let job of data.workExperience" class="experience-entry">
+      <div *ngFor="let job of sortedWorkExperience" class="experience-entry">
         <div class="exp-header-exec">
           <div>
             <span class="exp-role">{{ job.position }}</span>
@@ -142,4 +142,11 @@ import { ResumeData } from '../../models/resume.model';
 })
 export class ExecutiveTemplateComponent {
   @Input() data!: ResumeData;
+
+  get sortedWorkExperience() {
+    return [...(this.data?.workExperience ?? [])].sort((a, b) => {
+      if (a.isCurrent !== b.isCurrent) return a.isCurrent ? -1 : 1;
+      return new Date('1 ' + b.startDate).getTime() - new Date('1 ' + a.startDate).getTime();
+    });
+  }
 }

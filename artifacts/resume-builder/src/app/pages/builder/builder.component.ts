@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Title, Meta } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { Subject, merge, debounceTime, takeUntil } from 'rxjs';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -14,7 +15,10 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ResumeService } from '../../services/resume.service';
+import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 import { DEFAULT_RESUME, ResumeData } from '../../models/resume.model';
 import { ModernTemplateComponent } from '../../templates/modern/modern-template.component';
 import { ExecutiveTemplateComponent } from '../../templates/executive/executive-template.component';
@@ -28,8 +32,8 @@ import { CreativeTemplateComponent } from '../../templates/creative/creative-tem
     MatStepperModule, MatFormFieldModule, MatInputModule,
     MatButtonModule, MatIconModule, MatCheckboxModule,
     MatCardModule, MatChipsModule, MatDividerModule,
-    MatTooltipModule, MatSnackBarModule,
-    ModernTemplateComponent, ExecutiveTemplateComponent, CreativeTemplateComponent
+    MatTooltipModule, MatSnackBarModule, MatProgressSpinnerModule,
+    ModernTemplateComponent, ExecutiveTemplateComponent, CreativeTemplateComponent,
   ],
   template: `
 <div class="page-layout">
@@ -50,7 +54,7 @@ import { CreativeTemplateComponent } from '../../templates/creative/creative-tem
     <h1>Build Your Resume</h1>
     <p class="subtitle">Fill in your details. The preview updates live as you type.</p>
     <div class="header-actions">
-      <button mat-stroked-button color="warn" (click)="resetToDefault()" matTooltip="Reset to sample data">
+      <button mat-stroked-button color="warn" (click)="resetToDefault()" matTooltip="Clear all fields">
         <mat-icon>restore</mat-icon> Reset
       </button>
       <button mat-raised-button color="primary" (click)="goToPreview()">
@@ -179,6 +183,13 @@ import { CreativeTemplateComponent } from '../../templates/creative/creative-tem
                 <mat-form-field appearance="outline" class="bullet-field">
                   <textarea matInput [formControl]="asFC(b)" rows="2" placeholder="Describe a responsibility or achievement..."></textarea>
                 </mat-form-field>
+                <button mat-icon-button color="accent"
+                  matTooltip="AI Optimize — rewrite this bullet to be more impactful"
+                  [disabled]="!!aiOptimizing['job-'+i+'-'+bi]"
+                  (click)="optimizeBullet('job', i, bi, asFC(b))">
+                  <mat-spinner *ngIf="aiOptimizing['job-'+i+'-'+bi]" diameter="18"></mat-spinner>
+                  <mat-icon *ngIf="!aiOptimizing['job-'+i+'-'+bi]">auto_awesome</mat-icon>
+                </button>
                 <button mat-icon-button color="warn" (click)="removeJobBullet(i, bi)"><mat-icon>remove_circle</mat-icon></button>
               </div>
               <button mat-stroked-button (click)="addJobBullet(i)" class="add-btn-sm">
@@ -323,6 +334,13 @@ import { CreativeTemplateComponent } from '../../templates/creative/creative-tem
                 <mat-form-field appearance="outline" class="bullet-field">
                   <textarea matInput [formControl]="asFC(b)" rows="2" placeholder="Describe a key contribution..."></textarea>
                 </mat-form-field>
+                <button mat-icon-button color="accent"
+                  matTooltip="AI Optimize — rewrite this bullet to be more impactful"
+                  [disabled]="!!aiOptimizing['proj-'+i+'-'+bi]"
+                  (click)="optimizeBullet('proj', i, bi, asFC(b))">
+                  <mat-spinner *ngIf="aiOptimizing['proj-'+i+'-'+bi]" diameter="18"></mat-spinner>
+                  <mat-icon *ngIf="!aiOptimizing['proj-'+i+'-'+bi]">auto_awesome</mat-icon>
+                </button>
                 <button mat-icon-button color="warn" (click)="removeProjBullet(i, bi)"><mat-icon>remove_circle</mat-icon></button>
               </div>
               <button mat-stroked-button (click)="addProjBullet(i)" class="add-btn-sm">
@@ -377,6 +395,10 @@ import { CreativeTemplateComponent } from '../../templates/creative/creative-tem
                 <div class="preview-line long"></div>
                 <div class="preview-line medium"></div>
               </div>
+              <div *ngIf="tmpl.premium && !userService.isPremium" class="premium-overlay">
+                <mat-icon>lock</mat-icon>
+                <span>Premium</span>
+              </div>
             </div>
             <mat-card-content>
               <h3>{{ tmpl.name }}</h3>
@@ -411,6 +433,7 @@ import { CreativeTemplateComponent } from '../../templates/creative/creative-tem
           mat-button
           [class.active-tab]="selectedTemplate === t.id"
           (click)="selectTemplate(t.id)">
+          <mat-icon *ngIf="t.premium && !userService.isPremium" class="lock-icon">lock</mat-icon>
           {{ t.name }}
         </button>
       </div>
@@ -430,6 +453,7 @@ import { CreativeTemplateComponent } from '../../templates/creative/creative-tem
   </aside>
 
 </div><!-- /page-layout -->
+
   `,
   styles: [`
     /* ── Base / Desktop (≥960px) ── */
@@ -456,6 +480,7 @@ import { CreativeTemplateComponent } from '../../templates/creative/creative-tem
     .template-tabs { display: flex; gap: 4px; flex: 1; }
     .template-tabs button { font-size: 0.8rem; min-width: 0; padding: 0 10px; border-radius: 20px; color: #555; }
     .template-tabs .active-tab { background: #3f51b5; color: #fff !important; }
+    .lock-icon { font-size: 12px; height: 12px; width: 12px; vertical-align: middle; margin-right: 2px; }
 
     .preview-scroll-area { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 16px 0; }
     .preview-scaler-outer { display: flex; justify-content: center; }
@@ -493,7 +518,14 @@ import { CreativeTemplateComponent } from '../../templates/creative/creative-tem
     .template-card { cursor: pointer; transition: all 0.2s; border: 2px solid transparent !important; }
     .template-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important; }
     .template-card.selected { border-color: #3f51b5 !important; box-shadow: 0 0 0 2px #3f51b5 !important; }
-    .template-preview { height: 120px; border-radius: 6px; overflow: hidden; margin-bottom: 8px; }
+    .template-preview { height: 120px; border-radius: 6px; overflow: hidden; margin-bottom: 8px; position: relative; }
+    .premium-overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,0.52);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: white; gap: 4px; border-radius: 6px;
+    }
+    .premium-overlay mat-icon { font-size: 22px; height: 22px; width: 22px; }
+    .premium-overlay span { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
     .template-preview-modern { background: linear-gradient(135deg, #1a237e 0%, #283593 40%, #e8eaf6 40%); }
     .template-preview-executive { background: linear-gradient(180deg, #212121 0%, #212121 35%, #fafafa 35%); }
     .template-preview-creative { background: linear-gradient(135deg, #004d40 0%, #00695c 40%, #e0f2f1 40%); }
@@ -577,11 +609,16 @@ export class BuilderComponent implements OnInit, OnDestroy {
   private resumeService = inject(ResumeService);
   private router = inject(Router);
   private snack = inject(MatSnackBar);
+  private title = inject(Title);
+  private meta = inject(Meta);
+  readonly userService = inject(UserService);
+  readonly authService = inject(AuthService);
 
   readonly liveData = this.resumeService.resumeData;
   private destroy$ = new Subject<void>();
 
   mobileView: 'form' | 'preview' = 'form';
+  aiOptimizing: Record<string, boolean> = {};
 
   personalForm!: FormGroup;
   summaryForm!: FormGroup;
@@ -596,12 +633,14 @@ export class BuilderComponent implements OnInit, OnDestroy {
   selectedTemplate = 'modern';
 
   templates = [
-    { id: 'modern', name: 'Modern', description: 'Clean, professional layout with a bold header. Based on the classic IT resume format.' },
-    { id: 'executive', name: 'Executive', description: 'Dark header with clean typography, ideal for senior roles and leadership positions.' },
-    { id: 'creative', name: 'Creative', description: 'Two-column layout with teal accents, perfect for standing out in competitive fields.' }
+    { id: 'modern', name: 'Modern', description: 'Clean, professional layout with a bold header. Based on the classic IT resume format.', premium: false },
+    { id: 'executive', name: 'Executive', description: 'Dark header with clean typography, ideal for senior roles and leadership positions.', premium: true },
+    { id: 'creative', name: 'Creative', description: 'Two-column layout with teal accents, perfect for standing out in competitive fields.', premium: true },
   ];
 
   ngOnInit(): void {
+    this.title.setTitle('Resume Builder | ResumeCraft');
+    this.meta.updateTag({ name: 'robots', content: 'noindex, nofollow' });
     const data = this.resumeService.resumeData();
     this.buildForms(data);
     this.selectedTemplate = data.selectedTemplate || 'modern';
@@ -742,6 +781,12 @@ export class BuilderComponent implements OnInit, OnDestroy {
   asFC(ctrl: any): FormControl { return ctrl as FormControl; }
 
   selectTemplate(id: string): void {
+    const tmpl = this.templates.find(t => t.id === id);
+    if (tmpl?.premium && !this.userService.isPremium) {
+      this.snack.open('This template is a Premium feature.', 'Upgrade', { duration: 4000 })
+        .onAction().subscribe(() => void this.router.navigate(['/pricing']));
+      return;
+    }
     this.selectedTemplate = id;
     this.saveAll();
   }
@@ -775,6 +820,57 @@ export class BuilderComponent implements OnInit, OnDestroy {
       selectedTemplate: this.selectedTemplate
     };
     this.resumeService.update(data);
+  }
+
+  async optimizeBullet(
+    type: 'job' | 'proj',
+    i: number,
+    bi: number,
+    ctrl: FormControl,
+  ): Promise<void> {
+    const key = `${type}-${i}-${bi}`;
+    const bullet = (ctrl.value as string)?.trim();
+    if (!bullet) {
+      this.snack.open('Add some text to the bullet first.', 'OK', { duration: 2500 });
+      return;
+    }
+
+    // Require sign-in
+    if (!this.authService.isSignedIn()) {
+      this.snack.open('Sign in to use AI Optimize.', 'Sign In', { duration: 4000 })
+        .onAction().subscribe(() => this.router.navigate(['/sign-in']));
+      return;
+    }
+
+    // Premium check — AI optimize is premium-only
+    if (!this.userService.isPremium) {
+      this.snack.open('AI Optimize is a Premium feature.', 'Upgrade', { duration: 4000 })
+        .onAction().subscribe(() => void this.router.navigate(['/pricing']));
+      return;
+    }
+
+    this.aiOptimizing[key] = true;
+    try {
+      const res = await fetch('/api/ai/optimize-bullet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...this.authService.getAuthHeaders() },
+        body: JSON.stringify({ bullet }),
+      });
+
+      if (!res.ok) {
+        const err = (await res.json()) as { error?: string };
+        this.snack.open(err.error ?? 'AI error. Try again.', 'OK', { duration: 3000 });
+        return;
+      }
+
+      const data = (await res.json()) as { optimized: string };
+      ctrl.setValue(data.optimized);
+      this.snack.open('Bullet optimized!', 'OK', { duration: 2500 });
+    } catch {
+      this.snack.open('Network error. Please try again.', 'OK', { duration: 3000 });
+    } finally {
+      this.aiOptimizing[key] = false;
+    }
   }
 
   goToPreview(): void {

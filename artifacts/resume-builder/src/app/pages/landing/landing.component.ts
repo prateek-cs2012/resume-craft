@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Title, Meta } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -147,6 +148,13 @@ import { MatChipsModule } from '@angular/material/chips';
   `]
 })
 export class LandingComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, title: Title, meta: Meta) {
+    title.setTitle('ResumeCraft | Free ATS-Friendly Resume Builder');
+    meta.updateTag({ name: 'description', content: 'Build a professional, ATS-friendly resume in minutes with ResumeCraft. Upload your existing resume or start from scratch and download a polished PDF optimized for applicant tracking systems.' });
+    meta.updateTag({ name: 'robots', content: 'index, follow' });
+    meta.updateTag({ property: 'og:title', content: 'ResumeCraft | Free ATS-Friendly Resume Builder' });
+    meta.updateTag({ property: 'og:description', content: 'Build a professional, ATS-friendly resume in minutes. Upload, customize, and download a polished PDF that gets past applicant tracking systems.' });
+    meta.updateTag({ property: 'og:url', content: 'https://resumecraft.app/' });
+  }
   go(path: string) { this.router.navigate([path]); }
 }

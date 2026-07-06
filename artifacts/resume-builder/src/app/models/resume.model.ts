@@ -57,125 +57,123 @@ export interface ResumeData {
 
 export const DEFAULT_RESUME: ResumeData = {
   personalInfo: {
-    fullName: 'Prateek Tiwari',
-    title: 'Lead Software Engineer',
-    email: 'prateek@example.com',
-    phone: '+91 XXXXX XXXXX',
-    address: 'N2-508, Jaypee Aman, Sector 151, Noida, Uttar Pradesh - 201310',
-    linkedin: 'linkedin.com/in/prateektiwari',
-    github: '',
-    website: ''
+    fullName: 'Alex Morgan',
+    title: 'Senior Software Engineer',
+    email: 'alex.morgan@example.com',
+    phone: '+1 555-000-1234',
+    address: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+    linkedin: 'linkedin.com/in/alexmorgan',
+    github: 'github.com/alexmorgan',
+    website: 'alexmorgan.dev'
   },
   profileSummary: [
-    'Accomplished software engineer with 9+ years of experience in full-stack Java development, delivering robust applications across Banking, Healthcare, EV mobility, and IoT domains.',
-    'Expertise in microservices architecture and cloud-native solutions, transforming monolithic systems into scalable, modular, and high-performance applications, with hands-on experience in AWS, Docker, Kubernetes, and CI/CD pipelines.',
-    'Proficient in system design and backend development, crafting High-Level Designs (HLD), Low-Level Designs (LLD), REST APIs, and enterprise-scale distributed systems including event-driven architectures and Kafka-based solutions.',
-    'Experienced team leader and mentor, guiding teams of up to 14 engineers, ensuring efficient task distribution, technical guidance, and timely delivery of high-quality software solutions.',
-    'Skilled in designing scalable and resilient software architectures, including modular componentization, service orchestration, and performance optimization, ensuring high availability, maintainability, and alignment with enterprise standards.'
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, delivering robust solutions across fintech, healthcare, and logistics domains.',
+    'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat, with hands-on experience in cloud infrastructure, distributed systems, and CI/CD pipelines.',
+    'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur, crafting scalable REST APIs and event-driven architectures.',
+    'Excepteur sint occaecat cupidatat non proident, leading cross-functional teams of up to 12 engineers and ensuring timely delivery of high-quality software.',
+    'Skilled in designing resilient systems with a focus on performance optimisation, maintainability, and alignment with enterprise-grade standards.'
   ],
   coreCompetencies: [
-    'Full-Stack Java Development', 'System Design & Scalability', 'Performance Optimization',
-    'Microservices Architecture', 'CI/CD Pipeline Implementation', 'Database Design & ORM Frameworks',
-    'Cloud-Native Solutions (AWS)', 'Containerization & Orchestration', 'Cross-Functional Collaboration',
-    'Backend & REST API Development', 'Distributed & Scalable System Architecture', 'Project Management',
-    'Software Development Lifecycle', 'Technical Leadership & Team Mentoring', 'Requirement Gathering & Analysis'
+    'Full-Stack Development', 'System Design & Scalability', 'Performance Optimisation',
+    'Microservices Architecture', 'CI/CD Pipeline Implementation', 'Database Design & ORM',
+    'Cloud-Native Solutions', 'Containerisation & Orchestration', 'Cross-Functional Collaboration',
+    'REST & GraphQL APIs', 'Distributed Systems Architecture', 'Technical Leadership'
   ],
   technicalSkills: [
-    { category: 'Programming Languages', skills: 'Java' },
-    { category: 'Frameworks & Libraries', skills: 'Spring, Spring Boot, Hibernate, Spring Data JPA, Angular, React, Node.js' },
-    { category: 'Microservices & Messaging', skills: 'Microservices, Kafka' },
-    { category: 'Cloud & DevOps', skills: 'AWS, Docker, CI/CD, GIT' },
-    { category: 'System Design & Architecture', skills: 'System Design, HLD, LLD, Monolithic to Microservices Migration' }
+    { category: 'Programming Languages', skills: 'TypeScript, Python, Go' },
+    { category: 'Frameworks & Libraries', skills: 'React, Node.js, Express, FastAPI' },
+    { category: 'Databases', skills: 'PostgreSQL, Redis, MongoDB' },
+    { category: 'Cloud & DevOps', skills: 'AWS, Docker, Kubernetes, GitHub Actions' },
+    { category: 'Architecture', skills: 'Microservices, Event-Driven, Domain-Driven Design' }
   ],
   softSkills: ['Communication', 'Leadership', 'Problem Solving', 'Team Collaboration', 'Mentoring'],
-  domainExposure: ['Banking', 'Healthcare', 'Electric Vehicles (EV)', 'Internet of Things (IoT)'],
+  domainExposure: ['Fintech', 'Healthcare', 'Logistics', 'SaaS'],
   workExperience: [
     {
       id: '1',
-      startDate: 'Apr 2023',
+      startDate: 'Mar 2022',
       endDate: '',
       isCurrent: true,
-      company: 'TechStar Group',
-      position: 'Lead Software Engineer',
+      company: 'Acme Corp',
+      position: 'Senior Software Engineer',
       bullets: [
-        'Leading and contributing to full-stack Java development projects, delivering end-to-end software solutions.',
-        'Designing and developing cloud-native microservices with Spring Boot and AWS for scalable, high-performance applications.',
-        'Collaborating with Business Analysts and Product teams, translating requirements into technical designs and actionable solutions.',
-        'Performing system design activities, including High-Level Design (HLD) and Low-Level Design (LLD), to create modular and reusable components.',
-        'Developing backend services, REST APIs, and managing the full SDLC lifecycle across multiple domains including Banking, Healthcare, EVs, and IoT.',
-        'Managing containerized deployments and optimizing CI/CD workflows while mentoring and guiding teams of up to 14 engineers.'
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+        'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.'
       ]
     },
     {
       id: '2',
-      startDate: 'Aug 2022',
-      endDate: 'Apr 2023',
+      startDate: 'Jul 2019',
+      endDate: 'Mar 2022',
       isCurrent: false,
-      company: 'Nickelfox Technologies',
-      position: 'Lead Software Engineer',
+      company: 'Initech Solutions',
+      position: 'Software Engineer',
       bullets: [
-        'Fostered a collaborative and innovative environment, promoting a culture of excellence.',
-        'Led development of cutting-edge software solutions, ensuring high-quality delivery to clients.',
-        'Mentored team members and drove best practices in software design, development, and deployment.'
+        'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores.',
+        'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
+        'Ut labore et dolore magnam aliquam quaerat voluptatem architecto beatae vitae dicta sunt explicabo.'
       ]
     },
     {
       id: '3',
-      startDate: 'Jun 2016',
-      endDate: 'Aug 2022',
+      startDate: 'Jan 2017',
+      endDate: 'Jul 2019',
       isCurrent: false,
-      company: 'Samin Tekmindz',
-      position: 'Java Developer',
+      company: 'Globex Systems',
+      position: 'Junior Developer',
       bullets: [
-        'Worked as a Java Backend Developer using Spring, Spring Boot, Hibernate, Spring Data JPA, and OpenMRS.',
-        'Built and maintained backend services, APIs, and data persistence layers to support healthcare-focused applications.',
-        'Collaborated with cross-functional teams to deliver reliable, scalable backend solutions.'
+        'Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.',
+        'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.',
+        'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime.'
       ]
     }
   ],
   education: [
     {
       id: '1',
-      degree: 'Bachelor of Technology',
-      field: 'Computer Science Engineering',
-      institution: 'Uttar Pradesh Technical University (UPTU)',
-      location: 'Uttar Pradesh, India',
-      year: '2016'
+      degree: 'Bachelor of Science',
+      field: 'Computer Science',
+      institution: 'State University of Lorem',
+      location: 'Lorem City, USA',
+      year: '2017'
     }
   ],
   projects: [
     {
       id: '1',
-      title: 'Blink EV Mobility Platform',
-      role: 'Software Engineer',
-      duration: '7 months',
+      title: 'Project Aurum',
+      role: 'Lead Engineer',
+      duration: '8 months',
       bullets: [
-        'Redesigned a legacy monolithic system into a scalable microservices architecture, improving performance and maintainability by 30%.',
-        'Optimized CI/CD pipelines to cut deployment time by 40%, increase release frequency, and developed robust APIs/microservices.',
-        'Partnered with Business Analysts and Product teams to convert business requirements into clear, actionable technical user stories.'
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
       ]
     },
     {
       id: '2',
-      title: 'Open Charge Alliance – Compliance Testing Tool',
-      role: 'Backend/Integration Engineer',
-      duration: '10 months',
+      title: 'Nexus Data Platform',
+      role: 'Backend Engineer',
+      duration: '6 months',
       bullets: [
-        'Developed and maintained a compliance testing tool validating System Under Test (SUT) behavior against OCPP 2.0.1 specifications.',
-        'Improved reliability and automation of validation workflows.'
+        'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem.'
       ]
     },
     {
       id: '3',
-      title: 'Mobile Banking Platform (African Bank)',
-      role: 'Backend Engineer',
-      duration: '7 months',
+      title: 'Vortex Streaming Engine',
+      role: 'Full-Stack Developer',
+      duration: '5 months',
       bullets: [
-        'Developed secure and scalable backend services to support mobile banking operations.',
-        'Enhanced API performance and contributed to feature development for financial transaction workflows.'
+        'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit consequuntur magni dolores.',
+        'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit.'
       ]
     }
   ],
-  languages: ['English', 'Hindi'],
+  languages: ['English', 'Spanish'],
   selectedTemplate: 'modern'
 };

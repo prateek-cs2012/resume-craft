@@ -23,7 +23,19 @@ publicDir = "artifacts/resume-builder/dist/public"
 serve = "static"
 
 [[services.production.rewrites]]
-from = "/*"
+from = "/"
+to = "/index.html"
+
+[[services.production.rewrites]]
+from = "/upload"
+to = "/index.html"
+
+[[services.production.rewrites]]
+from = "/builder"
+to = "/index.html"
+
+[[services.production.rewrites]]
+from = "/preview"
 to = "/index.html"
 
 [services.env]
